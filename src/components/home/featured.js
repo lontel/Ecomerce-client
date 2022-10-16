@@ -8,21 +8,14 @@ const Featured = () => {
             img: './images/featured/featured_home.jpg',
             lineOne: 'fender',
             lineTwo: 'custom shop',
-            lineTitle: 'Show Now',
+            linkTitle: 'Show Now',
             linkTo: '/shop'
         },
         {
             img: './images/featured/featured_home_2.jpg',
             lineOne: 'B-stock',
             lineTwo: 'awsome discount',
-            lineTitle: 'View offers',
-            linkTo: '/shop'
-        },
-        {
-            img: './images/featured/featured_home_3.jpg',
-            lineOne: 'B-stock',
-            lineTwo: 'awsome discount',
-            lineTitle: 'View offers',
+            linkTitle: 'View offers',
             linkTo: '/shop'
         }
     ]
