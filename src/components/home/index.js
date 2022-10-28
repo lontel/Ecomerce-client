@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { productsBySort } from '../../store/actions/product.actions'
 
+import CardBlock from "utils/products/card.blocks"
+
 const slimPromotion = {
     img: './images/featured/featured_home_3.jpg',
     lineOne: 'Up to 40% off',
@@ -15,7 +17,7 @@ const slimPromotion = {
 }
 
 const Home = () => {
-
+    const { bySold, byDate } = useSelector(state => state.products)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -29,9 +31,18 @@ const Home = () => {
         }))
     }, [dispatch])
 
+    // console.log(byDate)
+
     return (
         <>
             <Featured />
+
+            {
+                bySold ?
+                    <CardBlock items={bySold} title='Best selling products' />
+                    :
+                    null
+            }
             <SlimPromotion items={slimPromotion} />
         </>
     )

@@ -5,7 +5,9 @@ export const productsBySort = ({ limit, sortBy, order, where }) => {
     return async (dispatch) => {
         try {
             const products = await axios.get('/api/products/allProducts', {
-                limit, sortBy, order
+                params: {
+                    limit, sortBy, order
+                }
             })
 
             switch (where) {
