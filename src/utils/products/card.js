@@ -3,6 +3,9 @@ import { EcomerceButton, renderCardImage } from '../tools'
 
 const Card = (props) => {
 
+    const handleAddToCart = (item) => {
+        alert('add to cart ')
+    }
 
     return (
         <div className={`card_item_wrapper ${props.grid ? 'grid_bars' : ''}`}>
@@ -26,10 +29,20 @@ const Card = (props) => {
                 }
                 <div className="actions">
                     <div className="button_wrapp">
-                        btn
+                        <EcomerceButton
+                            type='default'
+                            altClass='card_link'
+                            title='View product'
+                            linkTo={`/product_details/${props.item._id}`}
+                            style={{ fontWeight: 'bold' }}
+                        />
                     </div>
                     <div className="button_wrapp">
-                        btn
+                        <EcomerceButton
+                            type='bag_link'
+                            runAction={() => handleAddToCart(props.items)}
+                            iconSize='23'
+                        />
                     </div>
                 </div>
             </div>

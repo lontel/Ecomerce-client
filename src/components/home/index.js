@@ -1,6 +1,7 @@
 import React, { useEffect } from "react"
 import Featured from "./featured"
 import SlimPromotion from "utils/promotions/slim.block"
+import Loader from "utils/loader"
 
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -23,11 +24,11 @@ const Home = () => {
     useEffect(() => {
 
         dispatch(productsBySort({
-            limit: 3, sortBy: 'itemSold', order: 'desc', where: 'bySold'
+            limit: 4, sortBy: 'itemSold', order: 'desc', where: 'bySold'
         }))
 
         dispatch(productsBySort({
-            limit: 3, sortBy: 'date', order: 'desc', where: 'byDate'
+            limit: 4, sortBy: 'date', order: 'desc', where: 'byDate'
         }))
     }, [dispatch])
 
@@ -41,9 +42,16 @@ const Home = () => {
                 bySold ?
                     <CardBlock items={bySold} title='Best selling products' />
                     :
-                    null
+                    <Loader />
             }
             <SlimPromotion items={slimPromotion} />
+
+            {
+                byDate ?
+                    <CardBlock items={byDate} title='Latests products on the shop' />
+                    :
+                    <Loader />
+            }
         </>
     )
 }
