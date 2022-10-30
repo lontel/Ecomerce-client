@@ -1,5 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { toast } from 'react-toastify'
+
 
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
 
@@ -46,5 +48,22 @@ export const renderCardImage = (image) => {
         return image[0]
     } else {
         return '/images/image_not_availble.png'
+    }
+}
+
+export const showToast = (type, msg) => {
+    switch (type) {
+        case 'SUCCESS':
+            toast.success(msg, {
+                position: toast.POSITION.BOTTOM_RIGHT
+            })
+            break
+        case 'ERROR':
+            toast.error(msg, {
+                position: toast.POSITION.BOTTOM_RIGHT
+            })
+            break
+        default:
+            return false
     }
 }
