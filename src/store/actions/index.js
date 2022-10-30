@@ -1,23 +1,28 @@
 import {
-    GET_PROD_BY_SOLD, GET_PROD_BY_DATE, ERROR_GLOBAL, SUCCESS_GLOBAL
+    GET_PROD_BY_SOLD,
+    GET_PROD_BY_DATE,
+    ERROR_GLOBAL,
+    SUCCESS_GLOBAL,
+    CLEAR_NOTIFICATION
 } from '../types'
 
 
 
-//PRODUCTS
 
-export const prodBySold = (data) => ({
+////   PRODUCTS
+
+export const productsBySold = (data) => ({
     type: GET_PROD_BY_SOLD,
     payload: data
 })
 
-export const prodByDate = (data) => ({
+export const productsByDate = (data) => ({
     type: GET_PROD_BY_DATE,
     payload: data
 })
 
 
-//NOTIFICATIONS
+/// NOTIFICATIONS
 
 export const errorGlobal = (msg) => ({
     type: ERROR_GLOBAL,
@@ -28,3 +33,11 @@ export const successGlobal = (msg) => ({
     type: SUCCESS_GLOBAL,
     payload: msg
 })
+
+export const clearNotification = () => {
+    return (dispatch) => {
+        dispatch({
+            type: CLEAR_NOTIFICATION
+        })
+    }
+} 

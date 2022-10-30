@@ -4,7 +4,9 @@ import products from './products.reducer'
 import notifications from './notification.reducer'
 
 const appReducers = combineReducers({
-    users, products, notifications
-})
+    users,
+    products,
+    notifications
+});
 
 export default appReducers

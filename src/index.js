@@ -5,7 +5,7 @@ import Routes from './routes.js'
 import 'resources/styles/styles.css'
 
 import { Provider } from 'react-redux'
-import ReduxStore from 'store/index.js'
+import ReduxStore from 'store/index'
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'))

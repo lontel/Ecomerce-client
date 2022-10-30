@@ -1,4 +1,4 @@
-import { GET_PROD_BY_SOLD, GET_PROD_BY_DATE } from "store/types"
+import { GET_PROD_BY_SOLD, GET_PROD_BY_DATE } from 'store/types'
 
 export default function productsReducer(state = {}, action) {
     switch (action.type) {

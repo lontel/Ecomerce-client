@@ -52,6 +52,7 @@ export const renderCardImage = (image) => {
 }
 
 export const showToast = (type, msg) => {
+
     switch (type) {
         case 'SUCCESS':
             toast.success(msg, {
@@ -66,4 +67,5 @@ export const showToast = (type, msg) => {
         default:
             return false
     }
+
 }
