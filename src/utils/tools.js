@@ -2,8 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 
-
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
+
 
 export const EcomerceButton = (props) => {
     let template = ''
@@ -25,7 +25,7 @@ export const EcomerceButton = (props) => {
         case "bag_link":
             template =
                 <div
-                    className='bag_link'
+                    className="bag_link"
                     onClick={() => {
                         props.runAction()
                     }}
@@ -40,8 +40,8 @@ export const EcomerceButton = (props) => {
     }
 
     return template
-
 }
+
 
 export const renderCardImage = (image) => {
     if (image.length > 0) {
@@ -69,3 +69,9 @@ export const showToast = (type, msg) => {
     }
 
 }
+
+
+export const errorHelper = (formik, value) => ({
+    error: formik.errors[value] && formik.touched[value] ? true : false,
+    helperText: formik.errors[value] && formik.touched[value] ? formik.errors[value] : null
+})

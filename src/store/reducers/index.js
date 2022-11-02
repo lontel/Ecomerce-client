@@ -7,6 +7,6 @@ const appReducers = combineReducers({
     users,
     products,
     notifications
-});
+})
 
 export default appReducers
