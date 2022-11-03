@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import cookie from 'react-cookies'
 
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
 
@@ -75,3 +76,10 @@ export const errorHelper = (formik, value) => ({
     error: formik.errors[value] && formik.touched[value] ? true : false,
     helperText: formik.errors[value] && formik.touched[value] ? formik.errors[value] : null
 })
+
+
+export const getToken = () => cookie.load('x-access-token')
+export const removeToken = () => cookie.remove('x-access-token', { path: '/' })
+export const getAuthHeader = () => {
+    return { headers: { 'Authorization': `Bearer ${getToken()}` } }
+}

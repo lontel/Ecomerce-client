@@ -7,7 +7,7 @@ import { errorHelper } from 'utils/tools'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { TextField, Button } from '@material-ui/core'
-import { userRegister } from 'store/actions/user.actions'
+import { userRegister, userLogIn } from 'store/actions/user.actions'
 
 
 const AuthForm = (props) => {
@@ -38,7 +38,7 @@ const AuthForm = (props) => {
         if (props.formType) {
             dispatch(userRegister(values))
         } else {
-            ///// sign in
+            dispatch(userLogIn(values))
         }
 
     }
@@ -64,7 +64,10 @@ const AuthForm = (props) => {
 
                         <div className="form-group">
                             <TextField
-                                style={{ width: '100%' }}
+                                style={{
+                                    width: '100%',
+                                    margin: '10px 0px 20px 0px '
+                                }}
                                 name="email"
                                 label="Enter your email"
                                 variant="outlined"
@@ -88,6 +91,7 @@ const AuthForm = (props) => {
                             color="primary"
                             type="submit"
                             size="small"
+                            style={{ margin: '10px 0px 20px 0px ' }}
                         >
                             {props.formType ? 'Register' : 'Login'}
                         </Button>

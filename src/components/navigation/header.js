@@ -2,7 +2,7 @@ import React from "react"
 import { Link } from "react-router-dom"
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-const Header = () => {
+const Header = ({ users, signOutUser }) => {
     return (
         <header className="bck_b_light">
             <div className="container">
@@ -13,27 +13,30 @@ const Header = () => {
                 </div>
                 <div className="right">
                     <div className="top">
-                        <>
-                            <div className="cart_link">
-                                <span>1</span>
-                                <Link to="/dashboard/user/user_cart">
-                                    My cart
+                        {users.auth ?
+                            <>
+                                <div className="cart_link">
+                                    <span>1</span>
+                                    <Link to="/dashboard/user/user_cart">
+                                        My cart
+                                    </Link>
+                                </div>
+
+                                <Link to="/dashboard">
+                                    My account
                                 </Link>
-                            </div>
+                                <span
+                                    onClick={() => signOutUser()}
+                                >
+                                    Log out
+                                </span>
 
-                            <Link to="/dashboard">
-                                My account
-                            </Link>
-                            <span
-                                onClick={() => alert('log out')}
-                            >
-                                Log out
-                            </span>
-
+                            </>
+                            :
                             <Link to="/sign_in">
                                 Log in
                             </Link>
-                        </>
+                        }
                     </div>
                     <div className="bottom">
                         <Link to="/">

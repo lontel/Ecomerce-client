@@ -336,7 +336,7 @@ header .container {
 }
 
 header .container .left {
-    width: 250px;
+    width: 350px;
 }
 
 header .container .right {
@@ -862,7 +862,7 @@ footer .business_nfo .nfo {
 
 .register_login_container .left,
 .register_login_container .right {
-    flex: 1
+    flex: 1;
 }
 
 .register_login_container h2 {
