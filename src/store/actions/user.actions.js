@@ -49,6 +49,7 @@ export const userIsAuth = () => {
             dispatch(actions.userAuthenticate({ data: user.data, auth: true }))
         } catch (error) {
             dispatch(actions.userAuthenticate({ data: {}, auth: false }))
+            dispatch(actions.errorGlobal('You have to login first!'))
         }
     }
 }

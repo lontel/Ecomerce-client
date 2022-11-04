@@ -10,9 +10,11 @@ import Footer from './components/navigation/footer'
 import Home from './components/home'
 import RegisterLogin from 'components/auth'
 import Dashboard from './components/dashboard'
+import AuthGuard from 'hoc/authGuard'
 
 
 const App = (props) => {
+  const [isLoading, setIsLoading] = useState(true)
   const users = useSelector(state => state.users)
   const dispatch = useDispatch()
 
@@ -32,7 +34,9 @@ const App = (props) => {
       />
       <MainLayout>
         <Routes>
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={<AuthGuard value={{ isLoading }} />}>
+            <Route path="" element={<Dashboard />} />
+          </Route>
           <Route path="/sign_in" element={<RegisterLogin />} />
           <Route path="/" element={<Home />} />
         </Routes>
