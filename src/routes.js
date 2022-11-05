@@ -11,6 +11,7 @@ import Home from './components/home'
 import RegisterLogin from 'components/auth'
 import Dashboard from './components/dashboard'
 import AuthGuard from 'hoc/authGuard'
+import UserInfo from 'components/dashboard/user/info'
 
 
 const App = (props) => {
@@ -34,9 +35,13 @@ const App = (props) => {
       />
       <MainLayout>
         <Routes>
+          <Route path="/dashboard/user/user_info" element={<AuthGuard />}>
+            <Route path="" element={<UserInfo />} />
+          </Route>
           <Route path="/dashboard" element={<AuthGuard value={{ isLoading }} />}>
             <Route path="" element={<Dashboard />} />
           </Route>
+
           <Route path="/sign_in" element={<RegisterLogin />} />
           <Route path="/" element={<Home />} />
         </Routes>
