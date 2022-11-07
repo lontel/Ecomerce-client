@@ -13,6 +13,9 @@ const EmailStepper = ({ users }) => {
 
     const [loading, setLoading] = useState(false)
     const [emailModal, setEmailModal] = useState(false)
+    const [activeStep, setActiveStep] = useState(0)
+    const steps = ['Enter old email', 'Enter new email', 'Are you sure?']
+
     const notifications = useSelector(state => state.notifications)
     const dispatch = useDispatch()
 
@@ -41,6 +44,35 @@ const EmailStepper = ({ users }) => {
     const openModal = () => setEmailModal(true)
     const closeModal = () => setEmailModal(false)
 
+    const handleNext = () => {
+        setActiveStep((currentActiveStep) => currentActiveStep + 1)
+    }
+
+    const handleBack = () => {
+        setActiveStep((currentActiveStep) => currentActiveStep - 1)
+    }
+
+    const nextBtn = () => (
+        <Button
+            className="mt-3"
+            variant="contained"
+            color="primary"
+            onClick={handleNext}
+        >
+            Next</Button>
+    )
+
+    const backBtn = () => (
+        <Button
+            className="mt-3 ml-2"
+            variant="contained"
+            onClick={handleBack}
+        >
+            Back</Button>
+    )
+
+
+
     return (
         <>
             <form className="mt-3 article_form" style={{ maxWidth: '250px' }}>
@@ -67,7 +99,79 @@ const EmailStepper = ({ users }) => {
                     <Modal.Title>Update your email</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    stepper
+                    <Stepper activeStep={activeStep}>
+                        {
+                            steps.map((label, index) => {
+                                return (
+                                    <Step key={label}>
+                                        <StepLabel>{label}</StepLabel>
+                                    </Step>
+                                )
+                            })
+                        }
+                    </Stepper>
+                    <form className="mt-3 stepper_form" onSubmit={formik.handleSubmit}>
+                        {
+                            activeStep === 0 ?
+                                <div className="form-group">
+                                    <TextField
+                                        style={{ width: '100%' }}
+                                        name='email'
+                                        label='Enter your current email'
+                                        variant="outlined"
+                                        {...formik.getFieldProps('email')}
+                                        {...errorHelper(formik, 'email')}
+                                    />
+                                    {
+                                        formik.values.email && !formik.errors.email ?
+                                            nextBtn()
+                                            : null
+                                    }
+                                </div>
+                                : null
+                        }
+                        {
+                            activeStep === 1 ?
+                                <div className="form-group">
+                                    <TextField
+                                        style={{ width: '100%' }}
+                                        name='newEmail'
+                                        label='Enter your new email'
+                                        variant="outlined"
+                                        {...formik.getFieldProps('newEmail')}
+                                        {...errorHelper(formik, 'newEmail')}
+                                    />
+                                    {
+                                        formik.values.newEmail && !formik.errors.newEmail ?
+                                            nextBtn()
+                                            : null
+                                    }
+                                    {backBtn()}
+                                </div>
+                                : null
+                        }
+                        {
+                            activeStep === 2 ?
+                                <div className="form-group">
+                                    {
+                                        loading ?
+                                            <Loader />
+                                            :
+                                            <>
+                                                <Button
+                                                    className="mt-3"
+                                                    variant="contained"
+                                                    color="primary"
+                                                    onClick={formik.submitForm}
+                                                >
+                                                    Edit email</Button>
+                                                {backBtn()}
+                                            </>
+                                    }
+                                </div>
+                                : null
+                        }
+                    </form>
                 </Modal.Body>
             </Modal>
         </>
