@@ -22,11 +22,11 @@ const UserInfo = () => {
         validationSchema: Yup.object({
             firstname: Yup.string()
                 .min(3, 'Minimum 3 char required!')
-                .max(20, 'Minimum 20 char required!')
+                .max(20, 'Maximum 20 char required!')
                 .required('Sorry, you need the firstname'),
             lastname: Yup.string()
                 .min(3, 'Minimum 3 char required!')
-                .max(20, 'Minimum 20 char required!')
+                .max(20, 'Maximum 20 char required!')
                 .required('Sorry, you need the lastname')
         }),
         onSubmit: (values) => {

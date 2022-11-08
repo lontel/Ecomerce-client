@@ -3,75 +3,74 @@ import { useFormik } from "formik"
 import React, { useEffect, useState } from "react"
 import Modal from "react-bootstrap/Modal"
 import { useDispatch, useSelector } from "react-redux"
+import { updateUserEmail } from "store/actions/user.actions"
 import Loader from "utils/loader"
 import { errorHelper } from "utils/tools"
 import * as Yup from 'yup'
 
 
-
 const EmailStepper = ({ users }) => {
-
     const [loading, setLoading] = useState(false)
     const [emailModal, setEmailModal] = useState(false)
-    const [activeStep, setActiveStep] = useState(0)
-    const steps = ['Enter old email', 'Enter new email', 'Are you sure?']
-
     const notifications = useSelector(state => state.notifications)
     const dispatch = useDispatch()
 
+    const [activeStep, setActiveStep] = useState(0)
+    const steps = ['Enter old email', 'Enter new email', 'Are you sure ?']
+
+
     const formik = useFormik({
         enableReinitialize: true,
-        initialValues: { email: '', newEmail: '' },
+        initialValues: { email: '', newemail: '' },
         validationSchema: Yup.object({
             email: Yup.string()
                 .required('This is required')
-                .email('This is not a valid email ')
+                .email('This is not a valid email')
                 .test('match', 'Please check your email', (email) => {
                     return email === users.data.email
                 }),
-            newEmail: Yup.string()
+            newemail: Yup.string()
                 .required('This is required')
-                .email('This is not a valid email ')
-                .test('match', 'Please check your email', (newEmail) => {
-                    return newEmail !== users.data.email
+                .email('This is not a valid email')
+                .test('match', 'Please check your email', (newemail) => {
+                    return newemail !== users.data.email
                 })
         }),
         onSubmit: (values) => {
-            console.log(values)
+            setLoading(true);
+            dispatch(updateUserEmail(values))
         }
     })
 
-    const openModal = () => setEmailModal(true)
     const closeModal = () => setEmailModal(false)
+    const openModal = () => setEmailModal(true)
 
     const handleNext = () => {
-        setActiveStep((currentActiveStep) => currentActiveStep + 1)
+        setActiveStep((prevActiveStep) => prevActiveStep + 1)
     }
 
     const handleBack = () => {
-        setActiveStep((currentActiveStep) => currentActiveStep - 1)
+        setActiveStep((prevActiveStep) => prevActiveStep - 1)
     }
 
     const nextBtn = () => (
-        <Button
-            className="mt-3"
-            variant="contained"
-            color="primary"
-            onClick={handleNext}
-        >
-            Next</Button>
+        <Button className="mt-3" variant="contained" color="primary" onClick={handleNext}>
+            Next
+        </Button>
     )
 
     const backBtn = () => (
-        <Button
-            className="mt-3 ml-2"
-            variant="contained"
-            onClick={handleBack}
-        >
-            Back</Button>
+        <Button className="mt-3 ml-2" variant="contained" onClick={handleBack}>
+            Back
+        </Button>
     )
 
-
+    useEffect(() => {
+        if (notifications && notifications.success) {
+            closeModal()
+        }
+        setLoading(false)
+    }, [notifications])
 
     return (
         <>
@@ -79,7 +78,7 @@ const EmailStepper = ({ users }) => {
                 <div className="form-group">
                     <TextField
                         style={{ width: '100%' }}
-                        name='emailStatic'
+                        name="emailstatic"
                         variant="outlined"
                         value={users.data.email}
                         disabled
@@ -91,8 +90,8 @@ const EmailStepper = ({ users }) => {
                     color="primary"
                     onClick={openModal}
                 >
-                    Edit email</Button>
-
+                    Edit email
+                </Button>
             </form>
             <Modal size="lg" centered show={emailModal} onHide={closeModal}>
                 <Modal.Header closeButton>
@@ -100,83 +99,72 @@ const EmailStepper = ({ users }) => {
                 </Modal.Header>
                 <Modal.Body>
                     <Stepper activeStep={activeStep}>
-                        {
-                            steps.map((label, index) => {
-                                return (
-                                    <Step key={label}>
-                                        <StepLabel>{label}</StepLabel>
-                                    </Step>
-                                )
-                            })
-                        }
+                        {steps.map((label, index) => {
+                            return (
+                                <Step key={label}>
+                                    <StepLabel>{label}</StepLabel>
+                                </Step>
+                            )
+                        })}
                     </Stepper>
                     <form className="mt-3 stepper_form" onSubmit={formik.handleSubmit}>
-                        {
-                            activeStep === 0 ?
-                                <div className="form-group">
-                                    <TextField
-                                        style={{ width: '100%' }}
-                                        name='email'
-                                        label='Enter your current email'
-                                        variant="outlined"
-                                        {...formik.getFieldProps('email')}
-                                        {...errorHelper(formik, 'email')}
-                                    />
-                                    {
-                                        formik.values.email && !formik.errors.email ?
-                                            nextBtn()
-                                            : null
-                                    }
-                                </div>
-                                : null
-                        }
-                        {
-                            activeStep === 1 ?
-                                <div className="form-group">
-                                    <TextField
-                                        style={{ width: '100%' }}
-                                        name='newEmail'
-                                        label='Enter your new email'
-                                        variant="outlined"
-                                        {...formik.getFieldProps('newEmail')}
-                                        {...errorHelper(formik, 'newEmail')}
-                                    />
-                                    {
-                                        formik.values.newEmail && !formik.errors.newEmail ?
-                                            nextBtn()
-                                            : null
-                                    }
-                                    {backBtn()}
-                                </div>
-                                : null
-                        }
-                        {
-                            activeStep === 2 ?
-                                <div className="form-group">
-                                    {
-                                        loading ?
-                                            <Loader />
-                                            :
-                                            <>
-                                                <Button
-                                                    className="mt-3"
-                                                    variant="contained"
-                                                    color="primary"
-                                                    onClick={formik.submitForm}
-                                                >
-                                                    Edit email</Button>
-                                                {backBtn()}
-                                            </>
-                                    }
-                                </div>
-                                : null
-                        }
+                        {activeStep === 0 ?
+                            <div className="form-group">
+                                <TextField
+                                    style={{ width: '100%' }}
+                                    name="email"
+                                    label="Enter your current email"
+                                    variant="outlined"
+                                    {...formik.getFieldProps('email')}
+                                    {...errorHelper(formik, 'email')}
+                                />
+                                {formik.values.email && !formik.errors.email ?
+                                    nextBtn()
+                                    : null
+                                }
+                            </div>
+                            : null}
+                        {activeStep === 1 ?
+                            <div className="form-group">
+                                <TextField
+                                    style={{ width: '100%' }}
+                                    name="newemail"
+                                    label="Enter your new email"
+                                    variant="outlined"
+                                    {...formik.getFieldProps('newemail')}
+                                    {...errorHelper(formik, 'newemail')}
+                                />
+                                {formik.values.newemail && !formik.errors.newemail ?
+                                    nextBtn()
+                                    : null
+                                }
+                                {backBtn()}
+                            </div>
+                            : null}
+                        {activeStep === 2 ?
+                            <div className="form-group">
+                                {loading ?
+                                    <Loader />
+                                    :
+                                    <>
+                                        <Button
+                                            className="mt-3"
+                                            variant="contained"
+                                            color="primary"
+                                            onClick={formik.submitForm}
+                                        >
+                                            Yes, edit email
+                                        </Button>
+                                        {backBtn()}
+                                    </>
+                                }
+                            </div>
+                            : null}
                     </form>
                 </Modal.Body>
             </Modal>
         </>
     )
-
 }
 
 export default EmailStepper
