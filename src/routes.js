@@ -12,6 +12,7 @@ import RegisterLogin from 'components/auth'
 import Dashboard from './components/dashboard'
 import AuthGuard from 'hoc/authGuard'
 import UserInfo from 'components/dashboard/user/info'
+import AdminProducts from 'components/dashboard/admin/products'
 
 
 const App = (props) => {
@@ -35,6 +36,9 @@ const App = (props) => {
       />
       <MainLayout>
         <Routes>
+          <Route path="/dashboard/admin/admin_products" element={<AuthGuard />}>
+            <Route path="" element={<AdminProducts />} />
+          </Route>
           <Route path="/dashboard/user/user_info" element={<AuthGuard />}>
             <Route path="" element={<UserInfo />} />
           </Route>
