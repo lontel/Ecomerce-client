@@ -4,7 +4,16 @@ import Moment from "react-moment"
 import { LinkContainer } from "react-router-bootstrap"
 import Loader from "utils/loader"
 
-const ProductTable = ({ prods }) => {
+const ProductTable = ({ prods, prev, next, goToEdit, removeModal, closeModal, handleModal, handleRemove }) => {
+
+    const goToPrevPage = (page) => {
+        prev(page)
+    }
+
+    const goToNextPage = (page) => {
+        next(page)
+    }
+
     return (
         <>
             {
@@ -25,10 +34,10 @@ const ProductTable = ({ prods }) => {
                                             <td><Moment to={item.date}></Moment></td>
                                             <td>{item.model}</td>
                                             <td>{item.available}</td>
-                                            <td className="action_btn remove_btn" onClick={() => alert('remove')}>
+                                            <td className="action_btn remove_btn" onClick={() => handleModal(item._id)}>
                                                 Remove
                                             </td>
-                                            <td className="action_btn edit_btn" onClick={() => alert('edit')}>
+                                            <td className="action_btn edit_btn" onClick={() => goToEdit(item._id)}>
                                                 Edit
                                             </td>
                                         </tr>
@@ -40,8 +49,8 @@ const ProductTable = ({ prods }) => {
                             {
                                 prods.hasPrevPage ?
                                     <>
-                                        <Pagination.Prev onClick={() => alert('previous')} />
-                                        <Pagination.Item onClick={() => alert('go to prev')}>
+                                        <Pagination.Prev onClick={() => goToPrevPage(prods.prevPage)} />
+                                        <Pagination.Item onClick={() => goToPrevPage(prods.prevPage)}>
                                             {prods.prevPage}
                                         </Pagination.Item>
 
@@ -52,19 +61,32 @@ const ProductTable = ({ prods }) => {
                             {
                                 prods.hasNextPage ?
                                     <>
-                                        <Pagination.Item onClick={() => alert('go to next ')}>
+                                        <Pagination.Item onClick={() => goToNextPage(prods.nextPage)}>
                                             {prods.nextPage}
                                         </Pagination.Item>
-                                        <Pagination.Next onClick={() => alert('next')} />
+                                        <Pagination.Next onClick={() => goToNextPage(prods.nextPage)} />
 
                                     </>
                                     : null
                             }
                         </Pagination>
+                        <hr />
+                        <LinkContainer to='/dashboard/admin/add_products'>
+                            <Button variant="secondary">Add new product</Button>
+                        </LinkContainer>
 
                     </>
                     : <Loader />
             }
+            <Modal show={removeModal} onHide={closeModal} >
+                <Modal.Header closeButton>
+                    <Modal.Title>Are you really sure?</Modal.Title>
+                </Modal.Header>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={closeModal}>Close</Button>
+                    <Button variant="danger" onClick={() => handleRemove()}>Delete</Button>
+                </Modal.Footer>
+            </Modal>
         </>
     )
 }

@@ -8,7 +8,8 @@ import {
     SIGN_OUT,
     UPDATE_USER_PROFILE,
     UPDATE_USER_EMAIL,
-    GET_PROD_PAGINATE
+    GET_PROD_PAGINATE,
+    REMOVE_PRODUCT
 } from '../types'
 
 
@@ -49,6 +50,10 @@ export const productsByDate = (data) => ({
 export const productsByPaginate = (products) => ({
     type: GET_PROD_PAGINATE,
     payload: products
+})
+
+export const removeProduct = () => ({
+    type: REMOVE_PRODUCT
 })
 
 
