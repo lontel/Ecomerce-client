@@ -27,7 +27,7 @@ const AuthForm = (props) => {
                 .required('Sorry the password is required')
         }),
         onSubmit: (values) => {
-            setLoading(true);
+            setLoading(true)
             handleSubmit(values)
         }
     })
