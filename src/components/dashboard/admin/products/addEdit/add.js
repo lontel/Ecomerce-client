@@ -1,4 +1,4 @@
-import { Button, Divider, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField } from "@material-ui/core"
+import { Button, Divider, FormControl, FormHelperText, MenuItem, Select, TextField } from "@material-ui/core"
 import { useFormik } from "formik"
 import DashboardLayout from "hoc/dashboardLayout"
 import React, { useEffect, useState } from "react"
@@ -9,6 +9,8 @@ import Loader from "utils/loader"
 import { errorHelper } from "utils/tools"
 import { validation } from "./formValues"
 import { useNavigate } from "react-router-dom"
+import PicUpload from "./upload"
+
 
 const AddProduct = () => {
 
@@ -63,6 +65,7 @@ const AddProduct = () => {
                     <Loader />
                     :
                     <>
+                        <PicUpload />
                         <form className="mt-3 article_form" onSubmit={formik.handleSubmit}>
 
                             <div className="form-group">
