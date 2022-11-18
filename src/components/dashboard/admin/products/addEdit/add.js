@@ -1,19 +1,25 @@
-import { Button, Divider, FormControl, FormHelperText, MenuItem, Select, TextField } from "@material-ui/core"
+import { Button, Divider, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField } from "@material-ui/core"
 import { useFormik } from "formik"
 import DashboardLayout from "hoc/dashboardLayout"
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { addProduct } from "store/actions/product.actions"
 import { getAllBrands } from "store/actions/brands.actions"
 import Loader from "utils/loader"
 import { errorHelper } from "utils/tools"
 import { validation } from "./formValues"
+import { useNavigate } from "react-router-dom"
 
 const AddProduct = () => {
 
     const [loading, setLoading] = useState(false)
-    const notifications = useSelector(state => state.notifications)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const notifications = useSelector(state => state.notifications)
     const brands = useSelector(state => state.brands)
+    const productsCategory = ['Smart Watches', 'Laptops & Computers', 'TVs & Projectors', 'Video Games', 'Tablets', 'Smart Phones', 'Cameras & Camcorders', 'Other']
+
+
     const formik = useFormik({
         initialValues: {
             model: '',
@@ -26,13 +32,30 @@ const AddProduct = () => {
         },
         validationSchema: validation,
         onSubmit: (values) => {
-            console.log(values)
+            handleSubmit(values)
         }
     })
+
+    const handleSubmit = (values) => {
+        setLoading(true)
+        dispatch(addProduct(values))
+    }
+
+
+    useEffect(() => {
+        if (notifications && notifications.success) {
+            navigate('/dashboard/admin/admin_products')
+        }
+        if (notifications && notifications.error) {
+            setLoading(false)
+        }
+    }, [notifications, navigate])
 
     useEffect(() => {
         dispatch(getAllBrands())
     }, [dispatch])
+
+
     return (
         <DashboardLayout title='Add product'>
             {
@@ -41,6 +64,7 @@ const AddProduct = () => {
                     :
                     <>
                         <form className="mt-3 article_form" onSubmit={formik.handleSubmit}>
+
                             <div className="form-group">
                                 <TextField
                                     style={{ width: '100%' }}
@@ -51,6 +75,7 @@ const AddProduct = () => {
                                     {...errorHelper(formik, 'model')}
                                 />
                             </div>
+
                             <div className="form-group">
                                 <FormControl variant="outlined">
                                     <h5>Select a brand</h5>
@@ -69,7 +94,6 @@ const AddProduct = () => {
                                                         {item.name}
                                                     </MenuItem>
                                                 ))
-
                                                 : null
                                         }
                                     </Select>
@@ -81,7 +105,9 @@ const AddProduct = () => {
                                             : null
                                     }
                                 </FormControl>
+
                             </div>
+
                             <div className="form-group">
                                 <FormControl variant="outlined">
                                     <h5>Select a category</h5>
@@ -93,6 +119,15 @@ const AddProduct = () => {
                                         <MenuItem value=''>
                                             <em>None</em>
                                         </MenuItem>
+                                        {
+
+                                            productsCategory.map((item, i) => (
+                                                <MenuItem key={i} value={item}>
+                                                    {item}
+                                                </MenuItem>
+                                            ))
+
+                                        }
                                     </Select>
                                     {
                                         formik.errors.category && formik.touched.category ?
@@ -103,6 +138,8 @@ const AddProduct = () => {
                                     }
                                 </FormControl>
                             </div>
+
+
                             <div className="form-group">
                                 <TextField
                                     style={{ width: '100%' }}
@@ -115,6 +152,7 @@ const AddProduct = () => {
                                     minRows={4}
                                 />
                             </div>
+
                             <div className="form-group">
                                 <TextField
                                     style={{ width: '100%' }}
@@ -126,6 +164,7 @@ const AddProduct = () => {
                                     {...errorHelper(formik, 'price ')}
                                 />
                             </div>
+
                             <div className="form-group">
                                 <TextField
                                     style={{ width: '100%' }}
@@ -137,6 +176,7 @@ const AddProduct = () => {
                                     {...errorHelper(formik, 'available ')}
                                 />
                             </div>
+
                             <div className="form-group">
                                 <FormControl variant="outlined">
                                     <h5>Do we offer free shipping?</h5>
@@ -157,6 +197,7 @@ const AddProduct = () => {
                                     }
                                 </FormControl>
                             </div>
+
                             <Divider className="mt-3 mb-3" />
                             <Button
                                 variant="contained"

@@ -10,7 +10,8 @@ import {
     UPDATE_USER_EMAIL,
     GET_PROD_PAGINATE,
     REMOVE_PRODUCT,
-    GET_ALL_BRANDS
+    GET_ALL_BRANDS,
+    ADD_PRODUCT
 } from '../types'
 
 
@@ -55,6 +56,11 @@ export const productsByPaginate = (products) => ({
 
 export const removeProduct = () => ({
     type: REMOVE_PRODUCT
+})
+
+export const addProduct = (product) => ({
+    type: ADD_PRODUCT,
+    payload: product
 })
 
 

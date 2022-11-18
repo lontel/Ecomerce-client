@@ -5,6 +5,7 @@ import { getAuthHeader, getToken, removeToken } from 'utils/tools'
 
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
+
 export const productsBySort = ({ limit, sortBy, order, where }) => {
     return async (dispatch) => {
         try {
@@ -54,3 +55,16 @@ export const removeProduct = (id) => {
         }
     }
 }
+
+export const addProduct = (data) => {
+    return async (dispatch) => {
+        try {
+            const product = await axios.post('/api/products', data, getAuthHeader())
+            dispatch(actions.addProduct(product.data))
+            dispatch(actions.successGlobal('Product added  succesfully!'))
+        } catch (error) {
+            dispatch(actions.errorGlobal(error.response.data.message))
+        }
+    }
+}
+
