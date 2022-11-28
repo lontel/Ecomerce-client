@@ -11,7 +11,9 @@ import {
     GET_PROD_PAGINATE,
     REMOVE_PRODUCT,
     GET_ALL_BRANDS,
-    ADD_PRODUCT
+    ADD_PRODUCT,
+    GET_PROD_BY_ID,
+    CLEAR_CURRENT_PRODUCT
 } from '../types'
 
 
@@ -63,6 +65,14 @@ export const addProduct = (product) => ({
     payload: product
 })
 
+export const productsById = (product) => ({
+    type: GET_PROD_BY_ID,
+    payload: product
+})
+
+export const clearCurrentProduct = (product) => ({
+    type: CLEAR_CURRENT_PRODUCT
+})
 
 //// BRANDS
 

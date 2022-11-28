@@ -1,69 +1,67 @@
-import axios from "axios"
-import { useFormik } from "formik"
-import React, { useState } from "react"
-import { Button, Form } from "react-bootstrap"
-import Loader from "utils/loader"
-import { getToken } from "utils/tools"
+import React, { useState } from 'react'
+import { Form, Button } from 'react-bootstrap'
+import { useFormik } from 'formik'
 import * as Yup from 'yup'
+import axios from 'axios'
+import { getToken } from 'utils/tools'
+import Loader from 'utils/loader'
 
 
-const PicUpload = () => {
+const PicUpload = ({ picValue }) => {
+    const [isLoading, setIsLoading] = useState(false)
 
-    const [isLoading, setIsLoadind] = useState(false)
-
-    const uploadForm = useFormik({
+    const formikImg = useFormik({
         initialValues: { pic: '' },
         validationSchema: Yup.object({
             pic: Yup.mixed().required('A file is required')
         }),
         onSubmit: (values) => {
-            setIsLoadind(true)
+            setIsLoading(true)
             let formData = new FormData()
-            formData.append('file', values.pic)
-
+            formData.append("file", values.pic)
+            console.log(values.pic)
             axios.post(`/api/products/upload`, formData, {
                 headers: {
-                    'content-type': 'multipart/form-data',
                     'Authorization': `Bearer ${getToken()}`
                 }
-                    .then(response => {
-                        //response data
-                    }).catch(error => {
-                        alert('error')
-                    }).finally(() => {
-                        setIsLoadind(false)
-                    })
+            }).then(response => {
+                picValue(response.data)
+            }).catch(error => {
+                alert(error)
+            }).finally(() => {
+                setIsLoading(false)
             })
         }
     })
 
     return (
         <>
-            {
-                isLoading ?
-                    <Loader />
-                    :
-                    <Form onSubmit={uploadForm.handleSubmit}>
-                        <Form.Group>
-                            <Form.Control
-                                type="file"
-                                id='file'
-                                name='file'
-                                onChange={(event) => {
-                                    uploadForm.setFieldValue('pic', event.target.files[0])
-                                }}
-                            />
-                            {
-                                uploadForm.errors.pic && uploadForm.touched.pic ?
-                                    <div>Error</div>
-                                    : null
-                            }
-                        </Form.Group>
-                        <Button type="submit" variant="secondary">Add image</Button>
-                    </Form>
+            {isLoading ?
+                <Loader />
+                :
+                <Form onSubmit={formikImg.handleSubmit}>
+                    <Form.Group >
+                        <Form.Control
+                            type='file'
+                            id="file"
+                            name="file"
+                            onChange={(event) => {
+                                formikImg.setFieldValue("pic", event.target.files[0])
+                            }}
+                        />
+                        {formikImg.errors.pic && formikImg.touched.pic ?
+                            <div>Error</div>
+                            : null
+                        }
+                    </Form.Group>
+                    <Button variant="secondary" type="submit">
+                        Add image
+                    </Button>
+                </Form>
             }
         </>
     )
+
 }
 
 export default PicUpload

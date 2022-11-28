@@ -3,36 +3,32 @@ import { useFormik } from "formik"
 import DashboardLayout from "hoc/dashboardLayout"
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { addProduct } from "store/actions/product.actions"
+import { editProduct, productsById } from "store/actions/product.actions"
 import { getAllBrands } from "store/actions/brands.actions"
 import Loader from "utils/loader"
 import { errorHelper } from "utils/tools"
-import { validation } from "./formValues"
-import { useNavigate } from "react-router-dom"
+import { validation, formValues, getValuesToEdit } from "./formValues"
+import { useNavigate, useParams } from "react-router-dom"
 import PicUpload from "./upload"
+import { clearCurrentProduct } from 'store/actions/index'
 
-
-const AddProduct = () => {
+const EditProduct = () => {
 
     const [loading, setLoading] = useState(false)
+    const [values, setValues] = useState(formValues)
+
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const { id } = useParams()
     const notifications = useSelector(state => state.notifications)
     const brands = useSelector(state => state.brands)
+    const products = useSelector(state => state.products)
     const productsCategory = ['Smart Watches', 'Laptops & Computers', 'TVs & Projectors', 'Video Games', 'Tablets', 'Smart Phones', 'Cameras & Camcorders', 'Other']
 
 
     const formik = useFormik({
-        initialValues: {
-            model: '',
-            brand: '',
-            category: '',
-            description: '',
-            price: '',
-            available: '',
-            shipping: false,
-            images: []
-        },
+        enableReinitialize: true,
+        initialValues: values,
         validationSchema: validation,
         onSubmit: (values) => {
             handleSubmit(values)
@@ -41,7 +37,7 @@ const AddProduct = () => {
 
     const handleSubmit = (values) => {
         setLoading(true)
-        dispatch(addProduct(values))
+        dispatch(editProduct(values, id))
     }
 
     const handlePicValue = (pic) => {
@@ -61,12 +57,28 @@ const AddProduct = () => {
     }, [notifications, navigate])
 
     useEffect(() => {
+
         dispatch(getAllBrands())
+        if (id) {
+            dispatch(productsById(id))
+        }
+    }, [dispatch, id])
+
+    useEffect(() => {
+        if (products && products.byId) {
+            setValues(getValuesToEdit(products.byId))
+        }
+    }, [products])
+
+    useEffect(() => {
+        return () => {
+            dispatch(clearCurrentProduct())
+        }
     }, [dispatch])
 
 
     return (
-        <DashboardLayout title='Add product'>
+        <DashboardLayout title='Edit product'>
             {
                 loading ?
                     <Loader />
@@ -216,7 +228,7 @@ const AddProduct = () => {
                                 color="primary"
                                 type="submit"
                             >
-                                Add product
+                                Edit product
                             </Button>
                         </form>
                     </>
@@ -226,5 +238,5 @@ const AddProduct = () => {
     )
 }
 
-export default AddProduct
+export default EditProduct
 

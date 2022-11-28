@@ -14,6 +14,7 @@ import AuthGuard from 'hoc/authGuard'
 import UserInfo from 'components/dashboard/user/info'
 import AdminProducts from 'components/dashboard/admin/products'
 import AddProduct from 'components/dashboard/admin/products/addEdit/add'
+import EditProduct from 'components/dashboard/admin/products/addEdit/edit'
 
 
 
@@ -38,6 +39,9 @@ const App = (props) => {
       />
       <MainLayout>
         <Routes>
+          <Route path="/dashboard/admin/edit_product/:id" element={<AuthGuard />}>
+            <Route path="" element={<EditProduct />} />
+          </Route>
           <Route path="/dashboard/admin/add_products" element={<AuthGuard />}>
             <Route path="" element={<AddProduct />} />
           </Route>

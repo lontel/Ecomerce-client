@@ -1,4 +1,4 @@
-import { GET_PROD_BY_SOLD, GET_PROD_BY_DATE, GET_PROD_PAGINATE, ADD_PRODUCT } from 'store/types'
+import { GET_PROD_BY_SOLD, GET_PROD_BY_DATE, GET_PROD_PAGINATE, ADD_PRODUCT, GET_PROD_BY_ID, CLEAR_CURRENT_PRODUCT } from 'store/types'
 
 export default function productsReducer(state = {}, action) {
     switch (action.type) {
@@ -10,6 +10,10 @@ export default function productsReducer(state = {}, action) {
             return { ...state, byPaginate: action.payload }
         case ADD_PRODUCT:
             return { ...state, lastAdded: action.payload }
+        case GET_PROD_BY_ID:
+            return { ...state, byId: action.payload }
+        case CLEAR_CURRENT_PRODUCT:
+            return { ...state, byId: '' }
         default:
             return state
     }
