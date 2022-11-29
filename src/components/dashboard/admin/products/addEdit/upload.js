@@ -19,7 +19,6 @@ const PicUpload = ({ picValue }) => {
             setIsLoading(true)
             let formData = new FormData()
             formData.append("file", values.pic)
-            console.log(values.pic)
             axios.post(`/api/products/upload`, formData, {
                 headers: {
                     'Authorization': `Bearer ${getToken()}`
