@@ -11,10 +11,11 @@ import { validation, formValues, getValuesToEdit } from "./formValues"
 import { useNavigate, useParams } from "react-router-dom"
 import PicUpload from "./upload"
 import { clearCurrentProduct } from 'store/actions/index'
+import PicViewer from "./pickViewer"
 
 const EditProduct = () => {
 
-    const [loading, setLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(false)
     const [values, setValues] = useState(formValues)
 
     const dispatch = useDispatch()
@@ -36,7 +37,7 @@ const EditProduct = () => {
     })
 
     const handleSubmit = (values) => {
-        setLoading(true)
+        setIsLoading(true)
         dispatch(editProduct(values, id))
     }
 
@@ -46,18 +47,23 @@ const EditProduct = () => {
         formik.setFieldValue('images', picArray)
     }
 
+    const deletePic = (index) => {
+        const picArray = formik.values.images
+        picArray.splice(index, 1)
+        formik.setFieldValue('images', picArray)
+    }
+
 
     useEffect(() => {
         if (notifications && notifications.success) {
             navigate('/dashboard/admin/admin_products')
         }
         if (notifications && notifications.error) {
-            setLoading(false)
+            setIsLoading(false)
         }
     }, [notifications, navigate])
 
     useEffect(() => {
-
         dispatch(getAllBrands())
         if (id) {
             dispatch(productsById(id))
@@ -71,6 +77,12 @@ const EditProduct = () => {
     }, [products])
 
     useEffect(() => {
+        if (!products) {
+            setIsLoading(true)
+        }
+    }, [products])
+
+    useEffect(() => {
         return () => {
             dispatch(clearCurrentProduct())
         }
@@ -80,10 +92,13 @@ const EditProduct = () => {
     return (
         <DashboardLayout title='Edit product'>
             {
-                loading ?
+                isLoading ?
                     <Loader />
                     :
                     <>
+                        <PicViewer formik={formik}
+                            deletePic={(index) => deletePic(index)}
+                        />
                         <PicUpload
                             picValue={(pic) => handlePicValue(pic)}
                         />
@@ -239,4 +254,6 @@ const EditProduct = () => {
 }
 
 export default EditProduct
+
+
 

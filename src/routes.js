@@ -15,6 +15,7 @@ import UserInfo from 'components/dashboard/user/info'
 import AdminProducts from 'components/dashboard/admin/products'
 import AddProduct from 'components/dashboard/admin/products/addEdit/add'
 import EditProduct from 'components/dashboard/admin/products/addEdit/edit'
+import Shop from 'components/shop'
 
 
 
@@ -55,6 +56,7 @@ const App = (props) => {
             <Route path="" element={<Dashboard />} />
           </Route>
 
+          <Route path="/shop" element={<Shop />} />
           <Route path="/sign_in" element={<RegisterLogin />} />
           <Route path="/" element={<Home />} />
         </Routes>
