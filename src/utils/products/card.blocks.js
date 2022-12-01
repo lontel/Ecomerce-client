@@ -10,7 +10,7 @@ const CardBlock = ({ items, title, shop, grid }) => {
                 <Card
                     key={item._id}
                     item={item}
-                    grig={grid}
+                    grid={grid}
                 />
             ))
             : null

@@ -9,7 +9,8 @@ import { getAllBrands } from "store/actions/brands.actions"
 import CardBlock from "utils/products/card.blocks"
 import PaginateNav from "utils/paginateNav"
 import SearchBar from "./searchBar"
-
+import CollapseCheckbox from "./collapseCheckbox"
+import RangeSelect from "./rangeSelect"
 
 const defaultValues = {
     keywords: '',
@@ -45,6 +46,14 @@ const Shop = () => {
         setSearchValues({ keywords: values, page: 1 })
     }
 
+    const handleFilters = (filters) => {
+        setSearchValues({ brand: filters, page: 1 })
+    }
+
+    const handleRange = (values) => {
+        setSearchValues({ min: values[0], max: values[1], page: 1 })
+    }
+
     useEffect(() => {
         dispatch(getAllBrands())
     }, [dispatch])
@@ -66,8 +75,16 @@ const Shop = () => {
                 <div className="container">
                     <div className="shop_wrapper ">
                         <div className="left">
-                            collapse brands
-                            range select
+                            <CollapseCheckbox
+                                initState={true}
+                                title='Brands'
+                                list={brands.all}
+                                handleFilters={(filters) => handleFilters(filters)}
+                            />
+                            <RangeSelect
+                                title='Price range'
+                                handleRange={(values) => handleRange(values)}
+                            />
                         </div>
                         <div className="right">
                             <div className="shop_options">

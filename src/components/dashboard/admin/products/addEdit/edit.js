@@ -99,9 +99,11 @@ const EditProduct = () => {
                         <PicViewer formik={formik}
                             deletePic={(index) => deletePic(index)}
                         />
+                        <br />
                         <PicUpload
                             picValue={(pic) => handlePicValue(pic)}
                         />
+                        <br />
                         <form className="mt-3 article_form" onSubmit={formik.handleSubmit}>
 
                             <div className="form-group">
@@ -114,7 +116,7 @@ const EditProduct = () => {
                                     {...errorHelper(formik, 'model')}
                                 />
                             </div>
-
+                            <br />
                             <div className="form-group">
                                 <FormControl variant="outlined">
                                     <h5>Select a brand</h5>
@@ -146,7 +148,7 @@ const EditProduct = () => {
                                 </FormControl>
 
                             </div>
-
+                            <br />
                             <div className="form-group">
                                 <FormControl variant="outlined">
                                     <h5>Select a category</h5>
@@ -178,7 +180,7 @@ const EditProduct = () => {
                                 </FormControl>
                             </div>
 
-
+                            <br />
                             <div className="form-group">
                                 <TextField
                                     style={{ width: '100%' }}
@@ -191,7 +193,7 @@ const EditProduct = () => {
                                     minRows={4}
                                 />
                             </div>
-
+                            <br />
                             <div className="form-group">
                                 <TextField
                                     style={{ width: '100%' }}
@@ -203,7 +205,7 @@ const EditProduct = () => {
                                     {...errorHelper(formik, 'price ')}
                                 />
                             </div>
-
+                            <br />
                             <div className="form-group">
                                 <TextField
                                     style={{ width: '100%' }}
@@ -215,7 +217,7 @@ const EditProduct = () => {
                                     {...errorHelper(formik, 'available ')}
                                 />
                             </div>
-
+                            <br />
                             <div className="form-group">
                                 <FormControl variant="outlined">
                                     <h5>Do we offer free shipping?</h5>
