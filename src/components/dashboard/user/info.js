@@ -50,6 +50,7 @@ const UserInfo = () => {
                         {...errorHelper(formik, 'firstname')}
                     />
                 </div>
+                <br />
                 <div className="form-group">
                     <TextField
                         style={{ width: '100%' }}

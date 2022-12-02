@@ -17,7 +17,7 @@ import AddProduct from 'components/dashboard/admin/products/addEdit/add'
 import EditProduct from 'components/dashboard/admin/products/addEdit/edit'
 import Shop from 'components/shop'
 import ProductDetails from 'components/product'
-
+import UserCart from 'components/dashboard/user/cart'
 
 
 const App = (props) => {
@@ -41,6 +41,9 @@ const App = (props) => {
       />
       <MainLayout>
         <Routes>
+          <Route path="/dashboard/user/user_cart" element={<AuthGuard />}>
+            <Route path="" element={<UserCart />} />
+          </Route>
           <Route path="/dashboard/admin/edit_product/:id" element={<AuthGuard />}>
             <Route path="" element={<EditProduct />} />
           </Route>
