@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { userAddToCart } from "store/actions/user.actions"
 import AddToCartHandler from "utils/addToCartHandler"
 import { EcomerceButton, renderCardImage } from '../tools'
 
@@ -22,8 +23,7 @@ const Card = (props) => {
             setErrorType('verify')
             return false
         }
-        // dispatch to cart
-        alert('dispatch')
+        dispatch(userAddToCart(item))
     }
 
     const handleClose = () => setModal(false)

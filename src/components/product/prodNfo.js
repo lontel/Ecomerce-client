@@ -4,10 +4,32 @@ import LocalShippingIcon from '@material-ui/icons/LocalShipping'
 import DoneOutlineIcon from "@material-ui/icons/DoneOutline"
 import SentimentVeryDissatisfiedIcon from "@material-ui/icons/SentimentVeryDissatisfied"
 import { useDispatch, useSelector } from "react-redux"
-
+import { userAddToCart } from "store/actions/user.actions"
+import AddToCartHandler from "utils/addToCartHandler"
 
 
 const ProdNfo = ({ details }) => {
+
+    const [modal, setModal] = useState(false)
+    const [errorType, setErrorType] = useState(null)
+    const user = useSelector(state => state.users)
+    const dispatch = useDispatch()
+
+    const handleAddToCart = (item) => {
+        if (!user.auth) {
+            setModal(true)
+            setErrorType('auth')
+            return false
+        }
+        if (!user.data.verified) {
+            setModal(true)
+            setErrorType('verify')
+            return false
+        }
+        dispatch(userAddToCart(item))
+    }
+
+    const handleClose = () => setModal(false)
 
     const showProdTags = () => (
         <div className="product_tags ">
@@ -32,7 +54,7 @@ const ProdNfo = ({ details }) => {
                     </div>
                     :
                     <div className="tag">
-                        <div><DoneOutlineIcon /></div>
+                        <div><SentimentVeryDissatisfiedIcon /></div>
                         <div className="tag_text">
                             <div>Sorry, product not available at the moment</div>
                         </div>
@@ -49,7 +71,7 @@ const ProdNfo = ({ details }) => {
             <div className="cart">
                 <EcomerceButton
                     type='add_to_cart_link'
-                    runAction={() => alert('added  to cart')}
+                    runAction={() => handleAddToCart(details)}
                 />
             </div>
 
@@ -75,6 +97,11 @@ const ProdNfo = ({ details }) => {
             {showProdTags(details)}
             {showProdActions(details)}
             {showProdSpecs(details)}
+            <AddToCartHandler
+                modal={modal}
+                errorType={errorType}
+                handleClose={handleClose}
+            />
         </div>
     )
 }

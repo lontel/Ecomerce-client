@@ -13,7 +13,8 @@ import {
     GET_ALL_BRANDS,
     ADD_PRODUCT,
     GET_PROD_BY_ID,
-    CLEAR_CURRENT_PRODUCT
+    CLEAR_CURRENT_PRODUCT,
+    USER_ADD_TO_CART
 } from '../types'
 
 
@@ -36,6 +37,11 @@ export const updateUserProfile = (userData) => ({
 
 export const updateUserEmail = (data) => ({
     type: UPDATE_USER_EMAIL,
+    payload: data
+})
+
+export const userAddToCart = (data) => ({
+    type: USER_ADD_TO_CART,
     payload: data
 })
 
