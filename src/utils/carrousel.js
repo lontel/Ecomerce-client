@@ -16,6 +16,7 @@ const Carrousel = ({ items }) => {
         slideToScroll: 1,
         arrow: false
     }
+
     const generateSlides = () => (
         items ?
             items.map((item, i) => (
