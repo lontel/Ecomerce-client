@@ -1,11 +1,32 @@
-import React from "react"
+import React, { useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import AddToCartHandler from "utils/addToCartHandler"
 import { EcomerceButton, renderCardImage } from '../tools'
+
 
 const Card = (props) => {
 
+    const [modal, setModal] = useState(false)
+    const [errorType, setErrorType] = useState(null)
+    const user = useSelector(state => state.users)
+    const dispatch = useDispatch()
+
     const handleAddToCart = (item) => {
-        alert('add to cart ')
+        if (!user.auth) {
+            setModal(true)
+            setErrorType('auth')
+            return false
+        }
+        if (!user.data.verified) {
+            setModal(true)
+            setErrorType('verify')
+            return false
+        }
+        // dispatch to cart
+        alert('dispatch')
     }
+
+    const handleClose = () => setModal(false)
 
     return (
         <div className={`card_item_wrapper ${props.grid ? 'grid_bars' : ''}`}>
@@ -40,12 +61,17 @@ const Card = (props) => {
                     <div className="button_wrapp">
                         <EcomerceButton
                             type='bag_link'
-                            runAction={() => handleAddToCart(props.items)}
+                            runAction={() => handleAddToCart(props.item)}
                             iconSize='23'
                         />
                     </div>
                 </div>
             </div>
+            <AddToCartHandler
+                modal={modal}
+                errorType={errorType}
+                handleClose={handleClose}
+            />
         </div>
     )
 }
