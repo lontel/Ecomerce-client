@@ -3,7 +3,8 @@ import {
     SIGN_OUT,
     UPDATE_USER_PROFILE,
     UPDATE_USER_EMAIL,
-    USER_ADD_TO_CART
+    USER_ADD_TO_CART,
+    PURCHASE_SUCCESS
 } from '../types'
 
 
@@ -49,6 +50,15 @@ export default function usersReducer(state = DEFAULT_USER_STATE, action) {
             return {
                 ...state,
                 cart: action.payload
+            }
+        case PURCHASE_SUCCESS:
+            return {
+                ...state,
+                data: {
+                    ...state.data,
+                    history: action.payload.history
+                },
+                cart: []
             }
         default:
             return state

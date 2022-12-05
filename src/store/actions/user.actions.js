@@ -124,4 +124,16 @@ export const removeFromCart = (index) => {
             dispatch(actions.errorGlobal(error.response.data.message))
         }
     }
-}  
+}
+
+export const userPurchaseSuccess = (oredrID) => {
+    return async (dispatch) => {
+        try {
+            const user = await axios.post(`/api/transaction/`, { oredrID }, getAuthHeader())
+            dispatch(actions.successGlobal('Thank you !!'))
+            dispatch(actions.userPurchaseSuccess(user.data))
+        } catch (error) {
+            dispatch(actions.errorGlobal(error.response.data.message))
+        }
+    }
+}
