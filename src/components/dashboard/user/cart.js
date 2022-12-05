@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { removeFromCart } from "store/actions/user.actions"
 import Loader from "utils/loader"
 import CartDetails from "./cartDetails"
-
+import { PayPalButton } from 'react-paypal-button-v2'
 
 
 const UserCart = () => {
@@ -27,6 +27,37 @@ const UserCart = () => {
         return total
     }
 
+    const generateUnits = () => (
+        [{
+            description: 'Smart devices and accessories',
+            amount: {
+                currency_code: 'EUR',
+                value: calculateTotal(),
+                breakdown: {
+                    item_total: {
+                        currency_code: 'EUR',
+                        value: calculateTotal()
+                    }
+                }
+            },
+            items: generateItems()
+        }]
+    )
+
+    const generateItems = () => {
+        let items = users.cart.map(item => (
+            {
+                unit_amount: {
+                    currency_code: 'EUR',
+                    value: item.price
+                },
+                quantity: 1,
+                name: item.model
+            }
+        ))
+        return items
+    }
+
     return (
         <DashboardLayout title='Your cart'>
             {
@@ -41,6 +72,33 @@ const UserCart = () => {
                                 Total amount: ${calculateTotal()}
                             </div>
                         </div>
+                        {
+                            isLoading ?
+                                <Loader />
+                                :
+                                <div className="pp_button">
+                                    <PayPalButton
+                                        options={{
+                                            clientId: 'AfnCym4vnsTYWR-gNylEzOOVP3MnpG7g16kRxoSC48nop9y_IY0H6S_so9SE2hPJQmCsHET8iQ8aNcMX',
+                                            currency: 'EUR',
+                                            disableFunding: 'credit,card,sofort'
+                                        }}
+                                        createOrder={(data, actions) => {
+                                            return actions.order.create({
+                                                purchase_units: generateUnits()
+                                            })
+                                        }}
+                                        onSuccess={(details, data) => {
+                                            console.log('detalles: ', details)
+                                            console.log('data: ', data)
+                                            setIsLoading(true)
+                                        }}
+                                        onCancel={(data) => {
+                                            setIsLoading(false)
+                                        }}
+                                    />
+                                </div>
+                        }
                     </>
                     : <div>Your cart is empthy</div>
             }
