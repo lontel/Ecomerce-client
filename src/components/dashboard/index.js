@@ -11,8 +11,7 @@ const Dashboard = () => {
             <DashboardLayout title='Overview'>
                 <div className="user_nfo_panel">
                     <div>
-                        <span>{users.data.firstname}</span>
-                        <span>{users.data.lastname}</span>
+                        <span>{users.data.firstname} {users.data.lastname}</span>
                         <span>{users.data.email}</span>
                     </div>
                     {

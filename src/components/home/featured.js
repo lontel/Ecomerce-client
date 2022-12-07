@@ -5,14 +5,21 @@ const Featured = () => {
 
     const carrouselItems = [
         {
-            img: './images/featured/featured_home.jpg',
-            lineOne: 'fender',
+            img: './images/featured/several.jpg',
+            lineOne: 'Apple',
             lineTwo: 'custom shop',
             linkTitle: 'Show Now',
             linkTo: '/shop'
         },
         {
-            img: './images/featured/featured_home_2.jpg',
+            img: './images/featured/headphones.jpg',
+            lineOne: 'B-stock',
+            lineTwo: 'awsome discount',
+            linkTitle: 'View offers',
+            linkTo: '/shop'
+        },
+        {
+            img: './images/featured/laptop.jpg',
             lineOne: 'B-stock',
             lineTwo: 'awsome discount',
             linkTitle: 'View offers',

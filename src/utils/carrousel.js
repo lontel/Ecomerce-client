@@ -9,7 +9,7 @@ import { EcomerceButton } from './tools'
 const Carrousel = ({ items }) => {
 
     const settings = {
-        dot: false,
+        dot: true,
         infinite: true,
         speed: 500,
         slidesToShow: 1,

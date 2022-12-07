@@ -10,9 +10,9 @@ import { productsBySort } from '../../store/actions/product.actions'
 import CardBlock from "utils/products/card.blocks"
 
 const slimPromotion = {
-    img: './images/featured/featured_home_3.jpg',
+    img: './images/featured/devices.jpg',
     lineOne: 'Up to 40% off',
-    lineTwo: 'In second hand guitar',
+    lineTwo: 'in a selection of products',
     linkTitle: 'Show Now',
     linkTo: '/shop'
 }
@@ -22,7 +22,6 @@ const Home = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-
         dispatch(productsBySort({
             limit: 4, sortBy: 'itemSold', order: 'desc', where: 'bySold'
         }))
@@ -31,8 +30,6 @@ const Home = () => {
             limit: 4, sortBy: 'date', order: 'desc', where: 'byDate'
         }))
     }, [dispatch])
-
-    // console.log(byDate)
 
     return (
         <>
