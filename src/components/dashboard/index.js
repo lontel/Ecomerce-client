@@ -1,6 +1,8 @@
 import React from "react"
 import DashboardLayout from "hoc/dashboardLayout"
 import { useSelector } from "react-redux"
+import HistoryBlock from "utils/historyBlock"
+
 
 const Dashboard = () => {
     const users = useSelector(state => state.users)
@@ -14,11 +16,13 @@ const Dashboard = () => {
                         <span>{users.data.email}</span>
                     </div>
                     {
-                        users.data.history ?
+                        users.data.history.length > 0 ?
                             <div className="user_nfo_panel">
                                 <h1>History of purchases</h1>
                                 <div className="user_product_block_wrapper">
-                                    usbdvlblksdvbjdksb
+                                    <HistoryBlock
+                                        history={users.data.history}
+                                    />
                                 </div>
 
                             </div>

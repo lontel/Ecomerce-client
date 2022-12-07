@@ -13,7 +13,7 @@ const Footer = () => {
         <footer className="bck_b_dark">
             <div className="container">
                 <div className="logo">
-                    Ecomerce
+                    Techstore
                 </div>
                 <div className="wrapper">
                     <div className="left">
@@ -44,7 +44,7 @@ const Footer = () => {
                                 <EmailIcon />
                                 <div className="nfo">
                                     <div>Email</div>
-                                    <div>info@ecomerce.com</div>
+                                    <div>info@techstore.com</div>
                                 </div>
                             </div>
                         </div>

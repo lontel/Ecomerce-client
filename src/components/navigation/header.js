@@ -8,7 +8,7 @@ const Header = ({ users, signOutUser }) => {
             <div className="container">
                 <div className="left">
                     <div className="logo">
-                        Ecomerce
+                        Techstore
                     </div>
                 </div>
                 <div className="right">

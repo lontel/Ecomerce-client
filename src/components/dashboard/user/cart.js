@@ -1,10 +1,11 @@
 import DashboardLayout from "hoc/dashboardLayout"
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { removeFromCart } from "store/actions/user.actions"
+import { removeFromCart, userPurchaseSuccess } from "store/actions/user.actions"
 import Loader from "utils/loader"
 import CartDetails from "./cartDetails"
 import { PayPalButton } from 'react-paypal-button-v2'
+import { useNavigate } from "react-router-dom"
 
 
 const UserCart = () => {
@@ -14,6 +15,7 @@ const UserCart = () => {
     const users = useSelector(state => state.users)
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const removeItem = (index) => {
         dispatch(removeFromCart(index))
@@ -58,6 +60,15 @@ const UserCart = () => {
         return items
     }
 
+    useEffect(() => {
+        if (notifications && notifications.success) {
+            navigate('/dashboard')
+        }
+        if (notifications && notifications.error) {
+            setIsLoading(false)
+        }
+    }, [notifications, navigate])
+
     return (
         <DashboardLayout title='Your cart'>
             {
@@ -89,8 +100,7 @@ const UserCart = () => {
                                             })
                                         }}
                                         onSuccess={(details, data) => {
-                                            console.log('detalles: ', details)
-                                            console.log('data: ', data)
+                                            dispatch(userPurchaseSuccess(details.id))
                                             setIsLoading(true)
                                         }}
                                         onCancel={(data) => {
