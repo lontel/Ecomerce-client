@@ -18,7 +18,7 @@ import EditProduct from 'components/dashboard/admin/products/addEdit/edit'
 import Shop from 'components/shop'
 import ProductDetails from 'components/product'
 import UserCart from 'components/dashboard/user/cart'
-
+import SiteVars from 'components/dashboard/admin/site'
 
 const App = (props) => {
   const [isLoading, setIsLoading] = useState(true)
@@ -41,8 +41,17 @@ const App = (props) => {
       />
       <MainLayout>
         <Routes>
+          <Route path="/dashboard/user/user_info" element={<AuthGuard />}>
+            <Route path="" element={<UserInfo />} />
+          </Route>
           <Route path="/dashboard/user/user_cart" element={<AuthGuard />}>
             <Route path="" element={<UserCart />} />
+          </Route>
+          <Route path="/dashboard" element={<AuthGuard value={{ isLoading }} />}>
+            <Route path="" element={<Dashboard />} />
+          </Route>
+          <Route path="/dashboard/admin/manage_site" element={<AuthGuard />}>
+            <Route path="" element={<SiteVars />} />
           </Route>
           <Route path="/dashboard/admin/edit_product/:id" element={<AuthGuard />}>
             <Route path="" element={<EditProduct />} />
@@ -52,12 +61,6 @@ const App = (props) => {
           </Route>
           <Route path="/dashboard/admin/admin_products" element={<AuthGuard />}>
             <Route path="" element={<AdminProducts />} />
-          </Route>
-          <Route path="/dashboard/user/user_info" element={<AuthGuard />}>
-            <Route path="" element={<UserInfo />} />
-          </Route>
-          <Route path="/dashboard" element={<AuthGuard value={{ isLoading }} />}>
-            <Route path="" element={<Dashboard />} />
           </Route>
 
           <Route path="/product_details/:id" element={<ProductDetails />} />

@@ -29,14 +29,14 @@ const Footer = () => {
                                         </div>
                                     </div>
                                     <div className="tag">
-                                        <TimelapseIcon />
+                                        < PhoneIcon />
                                         <div className="nfo">
                                             <div>Phone</div>
                                             <div>{site.vars.phone}</div>
                                         </div>
                                     </div>
                                     <div className="tag">
-                                        <PhoneIcon />
+                                        < TimelapseIcon />
                                         <div className="nfo">
                                             <div>Working hours</div>
                                             <div>{site.vars.hours}</div>

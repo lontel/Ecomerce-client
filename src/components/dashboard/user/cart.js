@@ -61,13 +61,13 @@ const UserCart = () => {
     }
 
     useEffect(() => {
-        if (notifications && notifications.success) {
+        if (notifications && notifications.success && users.cart.length === 0) {
             navigate('/dashboard')
         }
         if (notifications && notifications.error) {
             setIsLoading(false)
         }
-    }, [notifications, navigate])
+    }, [notifications, navigate, users.cart])
 
     return (
         <DashboardLayout title='Your cart'>
@@ -110,7 +110,13 @@ const UserCart = () => {
                                 </div>
                         }
                     </>
-                    : <div>Your cart is empthy</div>
+                    :
+                    <>
+                        <img src="../../../../images/empthy-cart.png" alt="empthy-cart" />
+                        <br />
+                        <br />
+                        <div>Your cart is empthy</div>
+                    </>
             }
         </DashboardLayout>
     )
