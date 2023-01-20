@@ -134,7 +134,7 @@ export const userPurchaseSuccess = (orderID) => {
     return async (dispatch) => {
         try {
             const user = await axios.post(`/api/transaction`, { orderID }, getAuthHeader())
-            dispatch(actions.successGlobal('Thank you !!'))
+            dispatch(actions.successGlobal('Thank you for your payment!'))
             dispatch(actions.userPurchaseSuccess(user.data))
         } catch (error) {
             dispatch(actions.errorGlobal(error.response.data.message))
