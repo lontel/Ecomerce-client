@@ -84,7 +84,7 @@ const ProductTable = ({ prods, prev, next, goToEdit, removeModal, closeModal, ha
                 </Modal.Header>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={closeModal}>Close</Button>
-                    <Button variant="error" onClick={() => handleRemove()}>Delete</Button>
+                    <Button variant="danger" onClick={() => handleRemove()}>Delete</Button>
                 </Modal.Footer>
             </Modal>
         </>

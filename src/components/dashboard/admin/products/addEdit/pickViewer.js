@@ -42,7 +42,7 @@ const PicViewer = ({ formik, deletePic }) => {
                     <Button variant='secondary' onClick={handleClose}>
                         Close
                     </Button>
-                    <Button variant='error' onClick={handleDeletePic}>
+                    <Button variant='danger' onClick={handleDeletePic}>
                         Delete
                     </Button>
                 </Modal.Footer>
