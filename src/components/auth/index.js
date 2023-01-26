@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button } from '@material-ui/core'
+import Button from '@mui/material/Button'
 import AuthForm from './authForm'
 import PreventSignInRoute from 'hoc/preventSignInRoute'
 
@@ -34,7 +34,7 @@ const RegisterLogin = (props) => {
 
                             <Button
                                 variant="contained"
-                                color="default"
+                                color="primary"
                                 size="small"
                                 onClick={() => toogleFormType()}
                             >

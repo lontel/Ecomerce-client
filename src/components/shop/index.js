@@ -1,8 +1,8 @@
 import React, { useEffect, useReducer, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
-import GridOffIcon from '@material-ui/icons/GridOff'
-import GridOnIcon from '@material-ui/icons/GridOn'
+import GridOffIcon from '@mui/icons-material/GridOff'
+import GridOnIcon from '@mui/icons-material/GridOn'
 
 import { productsByPaginate } from "store/actions/product.actions"
 import { getAllBrands } from "store/actions/brands.actions"

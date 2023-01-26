@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import cookie from 'react-cookies'
 
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 
 
 export const EcomerceButton = (props) => {

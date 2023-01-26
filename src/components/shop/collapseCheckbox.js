@@ -1,7 +1,7 @@
 import React, { useState } from "react"
-import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
-import { Checkbox, Collapse, List, ListItem, ListItemSecondaryAction, ListItemText } from "@material-ui/core"
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
+import { Checkbox, Collapse, List, ListItem, ListItemSecondaryAction, ListItemText } from '@mui/material'
 
 
 const CollapseCheckbox = (props) => {

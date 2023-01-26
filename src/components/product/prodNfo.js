@@ -1,8 +1,8 @@
 import React, { useState } from "react"
 import { EcomerceButton } from "utils/tools"
-import LocalShippingIcon from '@material-ui/icons/LocalShipping'
-import DoneOutlineIcon from "@material-ui/icons/DoneOutline"
-import SentimentVeryDissatisfiedIcon from "@material-ui/icons/SentimentVeryDissatisfied"
+import LocalShippingIcon from '@mui/icons-material/LocalShipping'
+import DoneOutlineIcon from "@mui/icons-material/DoneOutline"
+import SentimentVeryDissatisfiedIcon from "@mui/icons-material/SentimentVeryDissatisfied"
 import { useDispatch, useSelector } from "react-redux"
 import { userAddToCart } from "store/actions/user.actions"
 import AddToCartHandler from "utils/addToCartHandler"

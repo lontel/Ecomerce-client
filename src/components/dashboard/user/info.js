@@ -4,7 +4,7 @@ import { useFormik } from "formik"
 import * as Yup from 'yup'
 import { errorHelper } from "utils/tools"
 import { useDispatch, useSelector } from "react-redux"
-import { TextField, Button } from "@material-ui/core"
+import { TextField, Button } from '@mui/material'
 import { updateUserProfile } from "store/actions/user.actions"
 import EmailStepper from "./stepper"
 

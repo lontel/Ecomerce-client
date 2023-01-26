@@ -7,7 +7,7 @@ import { productsByPaginate, removeProduct } from "store/actions/product.actions
 import ProductTable from "./productsTable"
 import { errorHelper } from "utils/tools"
 import * as Yup from 'yup'
-import { TextField } from "@material-ui/core"
+import { TextField } from '@mui/material'
 import { Button } from "react-bootstrap"
 
 

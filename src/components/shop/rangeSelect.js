@@ -3,9 +3,9 @@ import { useFormik } from "formik"
 import { errorHelper } from "utils/tools"
 import * as Yup from 'yup'
 
-import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp'
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown'
-import { Button, Collapse, List, ListItem, ListItemText, TextField } from "@material-ui/core"
+import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp'
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown'
+import { Button, Collapse, List, ListItem, ListItemText, TextField } from "@mui/material"
 
 
 const RangeSelect = (props) => {
